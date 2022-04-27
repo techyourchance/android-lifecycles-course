@@ -1,8 +1,10 @@
 package com.techyourchance.androidlifecycles
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,5 +16,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnNextActivity).setOnClickListener {
             SecondActivity.start(this)
         }
+
+        Log.i("MainActivity", applicationContext.toString())
     }
 }

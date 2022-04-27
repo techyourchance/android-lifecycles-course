@@ -3,6 +3,7 @@ package com.techyourchance.androidlifecycles
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -12,6 +13,8 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_second)
+
+        Log.i("SecondActivity", applicationContext.toString())
     }
 
     companion object {
