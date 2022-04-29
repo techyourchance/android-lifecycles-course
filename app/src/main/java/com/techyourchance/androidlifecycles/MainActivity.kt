@@ -17,6 +17,6 @@ class MainActivity : AppCompatActivity() {
             SecondActivity.start(this)
         }
 
-        Log.i("MainActivity", applicationContext.toString())
+        Timber.i(applicationContext.toString())
     }
 }

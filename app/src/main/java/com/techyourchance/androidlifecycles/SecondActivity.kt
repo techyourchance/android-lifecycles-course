@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import timber.log.Timber
 
 
 class SecondActivity : AppCompatActivity() {
@@ -14,7 +15,7 @@ class SecondActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_second)
 
-        Log.i("SecondActivity", applicationContext.toString())
+        Timber.i(applicationContext.toString())
     }
 
     companion object {
