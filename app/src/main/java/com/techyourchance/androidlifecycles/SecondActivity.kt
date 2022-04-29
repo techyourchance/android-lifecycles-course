@@ -11,7 +11,10 @@ import timber.log.Timber
 class SecondActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.i("onCreate()")
         super.onCreate(savedInstanceState)
+
+        (applicationContext as CustomApplication).lifecycleCounter.incrementActivityOnCreateCount()
 
         setContentView(R.layout.activity_second)
 
