@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 class SecondActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val application = this.application
+
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_second)
