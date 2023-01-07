@@ -8,13 +8,27 @@ import androidx.appcompat.app.AppCompatActivity
 
 class SecondActivity : AppCompatActivity() {
 
+    private lateinit var backgroundDetector: BackgroundDetector
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val application = this.application
 
         super.onCreate(savedInstanceState)
 
+        backgroundDetector = (application as CustomApplication).backgroundDetector
+
         setContentView(R.layout.activity_second)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        backgroundDetector.activityStarted()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        backgroundDetector.activityStopped()
     }
 
     companion object {
