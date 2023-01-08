@@ -1,6 +1,7 @@
 package com.techyourchance.androidlifecycles
 
 import android.util.Log
+import timber.log.Timber
 
 class BackgroundDetector {
 
@@ -9,18 +10,15 @@ class BackgroundDetector {
     fun activityStarted() {
         startedActivitiesNum++
         if (startedActivitiesNum == 1) {
-            Log.i(TAG, "application is in foreground")
+            Timber.i("application is in foreground")
         }
     }
 
     fun activityStopped() {
         startedActivitiesNum--
         if (startedActivitiesNum == 0) {
-            Log.i(TAG, "application is in background")
+            Timber.i("application is in background")
         }
     }
 
-    companion object {
-        private const val TAG = "BackgroundDetector"
-    }
 }
