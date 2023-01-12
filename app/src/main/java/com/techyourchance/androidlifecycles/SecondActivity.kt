@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import timber.log.Timber
 
 
 class SecondActivity : AppCompatActivity() {
@@ -12,6 +13,8 @@ class SecondActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        Timber.i("onCreate()")
+
         val application = this.application
 
         super.onCreate(savedInstanceState)
@@ -19,6 +22,11 @@ class SecondActivity : AppCompatActivity() {
         backgroundDetector = (application as CustomApplication).backgroundDetector
 
         setContentView(R.layout.activity_second)
+    }
+
+    override fun onDestroy() {
+        Timber.i("onDestroy()")
+        super.onDestroy()
     }
 
     override fun onStart() {
