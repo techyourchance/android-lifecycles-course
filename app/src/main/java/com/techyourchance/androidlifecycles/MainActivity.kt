@@ -33,11 +33,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
+        Timber.i("onStart()")
         super.onStart()
         backgroundDetector.activityStarted()
     }
 
     override fun onStop() {
+        Timber.i("onStop()")
         super.onStop()
         backgroundDetector.activityStopped()
     }
