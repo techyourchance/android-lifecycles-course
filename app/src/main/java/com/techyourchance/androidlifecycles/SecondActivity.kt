@@ -3,6 +3,7 @@ package com.techyourchance.androidlifecycles
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import timber.log.Timber
 
@@ -22,6 +23,10 @@ class SecondActivity : AppCompatActivity() {
         backgroundDetector = (application as CustomApplication).backgroundDetector
 
         setContentView(R.layout.activity_second)
+
+        findViewById<Button>(R.id.btnNextActivity).setOnClickListener {
+            TransparentActivity.start(this)
+        }
     }
 
     override fun onDestroy() {
