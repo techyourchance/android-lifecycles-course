@@ -7,7 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".SecondActivity">
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txtTitle"
+        android:layout_marginBottom="30dp"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/circular_progress_drawable"
+        style="@android:style/Widget.ProgressBar.Large"
+        />
+
     <TextView
+        android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/btnNextActivity"
@@ -28,5 +42,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="Next Activity"
         />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

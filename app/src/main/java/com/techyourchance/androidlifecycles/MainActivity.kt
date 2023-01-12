@@ -43,4 +43,15 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
         backgroundDetector.activityStopped()
     }
+
+    override fun onResume() {
+        Timber.i("onResume()")
+        super.onResume()
+    }
+
+    override fun onPause() {
+        Timber.i("onPause()")
+        super.onPause()
+    }
+
 }
