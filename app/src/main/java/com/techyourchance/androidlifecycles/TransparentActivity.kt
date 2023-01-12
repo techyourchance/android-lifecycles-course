@@ -41,6 +41,16 @@ class TransparentActivity : AppCompatActivity() {
         backgroundDetector.activityStopped()
     }
 
+    override fun onResume() {
+        Timber.i("onResume()")
+        super.onResume()
+    }
+
+    override fun onPause() {
+        Timber.i("onPause()")
+        super.onPause()
+    }
+
     companion object {
         @JvmStatic
         fun start(context: Context) {

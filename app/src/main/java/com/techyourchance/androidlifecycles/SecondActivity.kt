@@ -3,6 +3,7 @@ package com.techyourchance.androidlifecycles
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import timber.log.Timber
@@ -11,6 +12,8 @@ import timber.log.Timber
 class SecondActivity : AppCompatActivity() {
 
     private lateinit var backgroundDetector: BackgroundDetector
+
+    private lateinit var progress: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -23,6 +26,8 @@ class SecondActivity : AppCompatActivity() {
         backgroundDetector = (application as CustomApplication).backgroundDetector
 
         setContentView(R.layout.activity_second)
+
+        progress = findViewById<View>(R.id.progress)
 
         findViewById<Button>(R.id.btnNextActivity).setOnClickListener {
             TransparentActivity.start(this)
@@ -44,6 +49,18 @@ class SecondActivity : AppCompatActivity() {
         Timber.i("onStop()")
         super.onStop()
         backgroundDetector.activityStopped()
+    }
+
+    override fun onResume() {
+        Timber.i("onResume()")
+        super.onResume()
+        progress.visibility = View.VISIBLE
+    }
+
+    override fun onPause() {
+        Timber.i("onPause()")
+        super.onPause()
+        progress.visibility = View.GONE
     }
 
     companion object {
