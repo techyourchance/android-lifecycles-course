@@ -23,6 +23,8 @@
 
         <activity android:name=".SecondActivity"/>
 
+        <activity android:name=".TransparentActivity" android:theme="@style/ThemeTranslucent"/>
+
     </application>
 
 </manifest>
