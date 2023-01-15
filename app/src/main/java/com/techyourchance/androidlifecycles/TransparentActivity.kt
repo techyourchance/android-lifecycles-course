@@ -51,6 +51,11 @@ class TransparentActivity : AppCompatActivity() {
         super.onPause()
     }
 
+    override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
+        super.onTopResumedActivityChanged(isTopResumedActivity)
+        Timber.i("onTopResumedActivityChanged(); isTopResumed: $isTopResumedActivity")
+    }
+
     companion object {
         @JvmStatic
         fun start(context: Context) {
