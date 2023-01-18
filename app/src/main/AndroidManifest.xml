@@ -25,6 +25,8 @@
 
         <activity android:name=".TransparentActivity" android:theme="@style/ThemeTranslucent"/>
 
+        <activity android:name=".fragments.FragmentHostActivity"/>
+
     </application>
 
 </manifest>

@@ -28,4 +28,15 @@
         android:text="Next Activity"
         />
 
+    <Button
+        android:id="@+id/btnFragmentActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/btnNextActivity"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:text="Fragment Activity"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
