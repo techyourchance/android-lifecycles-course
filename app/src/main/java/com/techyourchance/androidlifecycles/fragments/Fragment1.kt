@@ -13,7 +13,13 @@ import timber.log.Timber
 class Fragment1: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Timber.i("onCreateView()")
         return layoutInflater.inflate(R.layout.fragment_1, container, false)
+    }
+
+    override fun onDestroyView() {
+        Timber.i("onDestroyView()")
+        super.onDestroyView()
     }
 
     companion object {
