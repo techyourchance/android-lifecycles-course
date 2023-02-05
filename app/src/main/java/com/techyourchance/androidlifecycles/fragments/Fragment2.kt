@@ -9,10 +9,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.techyourchance.androidlifecycles.R
 import timber.log.Timber
 
-class Fragment1: Fragment() {
+class Fragment2: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.i("onCreate()")
@@ -21,13 +22,10 @@ class Fragment1: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Timber.i("onCreateView()")
-        return layoutInflater.inflate(R.layout.fragment_1, container, false).apply {
-            findViewById<Button>(R.id.btnNextFragment).setOnClickListener {
-                Timber.i("Button clicked: next Fragment")
-                requireActivity().supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, Fragment2.newInstance(), "fragmentTag")
-                    .commit()
+        return layoutInflater.inflate(R.layout.fragment_2, container, false).apply {
+            findViewById<Button>(R.id.btnPreviousFragment).setOnClickListener {
+                Timber.i("Button clicked: previous Fragment")
+                Toast.makeText(requireContext(), "TODO", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -68,8 +66,8 @@ class Fragment1: Fragment() {
     }
 
     companion object {
-        fun newInstance(): Fragment1 {
-            return Fragment1()
+        fun newInstance(): Fragment2 {
+            return Fragment2()
         }
     }
 }

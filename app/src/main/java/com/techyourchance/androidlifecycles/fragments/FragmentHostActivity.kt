@@ -34,8 +34,10 @@ class FragmentHostActivity : AppCompatActivity() {
         btnAddRemoveFragment = findViewById(R.id.btnAddRemoveFragment)
         btnAddRemoveFragment.setOnClickListener {
             if (isFragmentAdded) {
+                Timber.i("Button clicked: remove Fragment")
                 removeFragment()
             } else {
+                Timber.i("Button clicked: add Fragment")
                 addFragment()
             }
             isFragmentAdded = !isFragmentAdded
