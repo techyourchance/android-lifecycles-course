@@ -14,11 +14,20 @@ import timber.log.Timber
 
 class Fragment1: Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.i("onCreate()")
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Timber.i("onCreateView()")
         return layoutInflater.inflate(R.layout.fragment_1, container, false).apply {
             findViewById<Button>(R.id.btnNextFragment).setOnClickListener {
-                Toast.makeText(requireContext(), "TODO", Toast.LENGTH_SHORT).show()
+                Timber.i("Button clicked: next Fragment")
+                requireActivity().supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, Fragment2.newInstance(), "fragmentTag")
+                    .commit()
             }
         }
     }
@@ -28,9 +37,34 @@ class Fragment1: Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onStart() {
+        Timber.i("onStart()")
+        super.onStart()
+    }
+
+    override fun onResume() {
+        Timber.i("onResume()")
+        super.onResume()
+    }
+
+    override fun onPause() {
+        Timber.i("onPause()")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Timber.i("onStop()")
+        super.onStop()
+    }
+
     override fun onDestroyView() {
         Timber.i("onDestroyView()")
         super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        Timber.i("onDestroy()")
+        super.onDestroy()
     }
 
     companion object {
