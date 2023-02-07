@@ -25,7 +25,7 @@ class Fragment2: Fragment() {
         return layoutInflater.inflate(R.layout.fragment_2, container, false).apply {
             findViewById<Button>(R.id.btnPreviousFragment).setOnClickListener {
                 Timber.i("Button clicked: previous Fragment")
-                Toast.makeText(requireContext(), "TODO", Toast.LENGTH_SHORT).show()
+                requireActivity().supportFragmentManager.popBackStack()
             }
         }
     }
