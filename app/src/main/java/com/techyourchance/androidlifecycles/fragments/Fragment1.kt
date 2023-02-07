@@ -27,6 +27,7 @@ class Fragment1: Fragment() {
                 requireActivity().supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fragmentContainer, Fragment2.newInstance(), "fragmentTag")
+                    .addToBackStack(null)
                     .commit()
             }
         }
