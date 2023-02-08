@@ -14,6 +14,8 @@ import timber.log.Timber
 
 class Fragment1: Fragment() {
 
+    private var btnNextFragment: Button? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.i("onCreate()")
         super.onCreate(savedInstanceState)
@@ -22,13 +24,15 @@ class Fragment1: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Timber.i("onCreateView()")
         return layoutInflater.inflate(R.layout.fragment_1, container, false).apply {
-            findViewById<Button>(R.id.btnNextFragment).setOnClickListener {
-                Timber.i("Button clicked: next Fragment")
-                requireActivity().supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, Fragment2.newInstance(), "fragmentTag")
-                    .addToBackStack(null)
-                    .commit()
+            btnNextFragment = findViewById<Button>(R.id.btnNextFragment).apply {
+                setOnClickListener {
+                    Timber.i("Button clicked: next Fragment")
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer, Fragment2.newInstance(), "fragmentTag")
+                        .addToBackStack(null)
+                        .commit()
+                }
             }
         }
     }
