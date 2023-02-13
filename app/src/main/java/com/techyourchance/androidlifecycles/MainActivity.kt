@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.techyourchance.androidlifecycles.configchanges.ConfigChangeActivity
 import com.techyourchance.androidlifecycles.fragments.FragmentHostActivity
 import timber.log.Timber
 
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btnFragmentActivity).setOnClickListener {
             FragmentHostActivity.start(this)
+        }
+
+        findViewById<Button>(R.id.btnConfigChangeActivity).setOnClickListener {
+            ConfigChangeActivity.start(this)
         }
     }
 

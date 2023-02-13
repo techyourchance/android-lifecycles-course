@@ -27,6 +27,11 @@
 
         <activity android:name=".fragments.FragmentHostActivity"/>
 
+        <activity
+            android:name=".configchanges.ConfigChangeActivity"
+            android:windowSoftInputMode="stateUnchanged"
+            />
+
     </application>
 
 </manifest>
