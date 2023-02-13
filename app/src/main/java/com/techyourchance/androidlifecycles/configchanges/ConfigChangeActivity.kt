@@ -1,17 +1,27 @@
-package com.techyourchance.androidlifecycles
+package com.techyourchance.androidlifecycles.configchanges
 
 import android.app.Application
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.techyourchance.androidlifecycles.configchanges.ConfigChangeActivity
-import com.techyourchance.androidlifecycles.fragments.FragmentHostActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.techyourchance.androidlifecycles.BackgroundDetector
+import com.techyourchance.androidlifecycles.CustomApplication
+import com.techyourchance.androidlifecycles.MyFragmentLifecycleCallbacks
+import com.techyourchance.androidlifecycles.R
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity() {
+class ConfigChangeActivity : AppCompatActivity() {
 
     private lateinit var backgroundDetector: BackgroundDetector
+
+    private lateinit var btnAddRemoveFragment: Button
+
+    private var isFragmentAdded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -23,19 +33,14 @@ class MainActivity : AppCompatActivity() {
 
         backgroundDetector = (application as CustomApplication).backgroundDetector
 
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_config_change)
 
-        findViewById<Button>(R.id.btnNextActivity).setOnClickListener {
-            SecondActivity.start(this)
-        }
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragmentContainer, ConfigChangeFragment.newInstance(), "fragmentTag")
+            .commit()
 
-        findViewById<Button>(R.id.btnFragmentActivity).setOnClickListener {
-            FragmentHostActivity.start(this)
-        }
-
-        findViewById<Button>(R.id.btnConfigChangeActivity).setOnClickListener {
-            ConfigChangeActivity.start(this)
-        }
+        supportFragmentManager.registerFragmentLifecycleCallbacks(MyFragmentLifecycleCallbacks(), false)
     }
 
     override fun onDestroy() {
@@ -69,4 +74,13 @@ class MainActivity : AppCompatActivity() {
         super.onTopResumedActivityChanged(isTopResumedActivity)
         Timber.i("onTopResumedActivityChanged(); isTopResumed: $isTopResumedActivity")
     }
+
+    companion object {
+        @JvmStatic
+        fun start(context: Context) {
+            val intent = Intent(context, ConfigChangeActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
+
 }
