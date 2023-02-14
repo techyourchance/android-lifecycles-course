@@ -35,10 +35,12 @@ class ConfigChangeActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_config_change)
 
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragmentContainer, ConfigChangeFragment.newInstance(), "fragmentTag")
-            .commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragmentContainer, ConfigChangeFragment.newInstance(), "fragmentTag")
+                .commit()
+        }
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(MyFragmentLifecycleCallbacks(), false)
     }
