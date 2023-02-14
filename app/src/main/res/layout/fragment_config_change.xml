@@ -19,4 +19,17 @@
         android:text="Config change Fragment"
         />
 
+    <EditText
+        android:id="@+id/edtNumber"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtScreenName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:inputType="number"
+        android:maxLines="1"
+        android:textAlignment="center"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
