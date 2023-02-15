@@ -8,13 +8,14 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.techyourchance.androidlifecycles.R
 import timber.log.Timber
+import java.sql.Time
 
 class ConfigChangeFragment: Fragment() {
 
     private var rootView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Timber.i("onCreate()")
+        Timber.i("onCreate(); savedInstanceState: $savedInstanceState")
         super.onCreate(savedInstanceState)
     }
 
@@ -30,6 +31,11 @@ class ConfigChangeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Timber.i("onViewCreated()")
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        Timber.i("onSaveInstanceState()")
+        super.onSaveInstanceState(outState)
     }
 
     override fun onStart() {
