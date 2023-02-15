@@ -7,6 +7,13 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="TextViewStandard" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textColor">@color/gray_dark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="ThemeTranslucent" parent="Theme.AppCompat.NoActionBar">
         <item name="android:background">@color/semi_transparent</item>
         <item name="android:windowNoTitle">true</item>

@@ -1,16 +1,22 @@
 package com.techyourchance.androidlifecycles.configchanges
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.techyourchance.androidlifecycles.R
 import timber.log.Timber
-import java.sql.Time
 
-class ConfigChangeFragment: Fragment() {
+class ConfigChangeFragment(private val listener: Listener) : Fragment() {
+
+    interface Listener {
+        fun onUserInputChanged(userInput: String)
+    }
 
     private var rootView: View? = null
 
@@ -23,7 +29,11 @@ class ConfigChangeFragment: Fragment() {
         Timber.i("onCreateView()")
         if (rootView == null) {
             Timber.i("initializing the view hierarchy")
-            rootView = layoutInflater.inflate(R.layout.fragment_config_change, container, false)
+            rootView = layoutInflater.inflate(R.layout.fragment_config_change, container, false).apply {
+                findViewById<EditText>(R.id.edtNumber).addTextChangedListener {
+                    listener.onUserInputChanged(it?.toString() ?: "")
+                }
+            }
         }
         return rootView
     }
@@ -69,8 +79,8 @@ class ConfigChangeFragment: Fragment() {
     }
 
     companion object {
-        fun newInstance(): ConfigChangeFragment {
-            return ConfigChangeFragment()
+        fun newInstance(listener: Listener): ConfigChangeFragment {
+            return ConfigChangeFragment(listener)
         }
     }
 }
