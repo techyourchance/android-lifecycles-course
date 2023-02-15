@@ -30,6 +30,8 @@ class FragmentHostActivity : AppCompatActivity() {
 
         backgroundDetector = (application as CustomApplication).backgroundDetector
 
+        isFragmentAdded = savedInstanceState?.getBoolean("isFragmentAdded", false) ?: false
+
         setContentView(R.layout.activity_fragment_host)
 
         btnAddRemoveFragment = findViewById(R.id.btnAddRemoveFragment)
@@ -72,9 +74,9 @@ class FragmentHostActivity : AppCompatActivity() {
             .commit()
     }
 
-    override fun onDestroy() {
-        Timber.i("onDestroy()")
-        super.onDestroy()
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("isFragmentAdded", isFragmentAdded)
     }
 
     override fun onStart() {
@@ -97,6 +99,11 @@ class FragmentHostActivity : AppCompatActivity() {
     override fun onPause() {
         Timber.i("onPause()")
         super.onPause()
+    }
+
+    override fun onDestroy() {
+        Timber.i("onDestroy()")
+        super.onDestroy()
     }
 
     override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
