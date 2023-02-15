@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import com.techyourchance.androidlifecycles.R
 import timber.log.Timber
 
-class ConfigChangeFragment(private val listener: Listener) : Fragment() {
+class ConfigChangeFragment: Fragment() {
 
     interface Listener {
         fun onUserInputChanged(userInput: String)
@@ -31,7 +31,10 @@ class ConfigChangeFragment(private val listener: Listener) : Fragment() {
             Timber.i("initializing the view hierarchy")
             rootView = layoutInflater.inflate(R.layout.fragment_config_change, container, false).apply {
                 findViewById<EditText>(R.id.edtNumber).addTextChangedListener {
-                    listener.onUserInputChanged(it?.toString() ?: "")
+                    val activity = requireActivity()
+                    if (activity is Listener) {
+                        activity.onUserInputChanged(it?.toString() ?: "")
+                    }
                 }
             }
         }
@@ -78,9 +81,10 @@ class ConfigChangeFragment(private val listener: Listener) : Fragment() {
         super.onDestroy()
     }
 
+
     companion object {
-        fun newInstance(listener: Listener): ConfigChangeFragment {
-            return ConfigChangeFragment(listener)
+        fun newInstance(): ConfigChangeFragment {
+            return ConfigChangeFragment()
         }
     }
 }

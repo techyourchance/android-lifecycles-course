@@ -16,7 +16,7 @@ import com.techyourchance.androidlifecycles.MyFragmentLifecycleCallbacks
 import com.techyourchance.androidlifecycles.R
 import timber.log.Timber
 
-class ConfigChangeActivity : AppCompatActivity() {
+class ConfigChangeActivity : AppCompatActivity(), ConfigChangeFragment.Listener {
 
     private lateinit var backgroundDetector: BackgroundDetector
 
@@ -38,27 +38,16 @@ class ConfigChangeActivity : AppCompatActivity() {
 
         txtUserInput = findViewById(R.id.txtUserInput)
 
-        updateUserInput("")
+        onUserInputChanged("")
 
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .add(
-                    R.id.fragmentContainer,
-                    ConfigChangeFragment.newInstance(object : ConfigChangeFragment.Listener {
-                        override fun onUserInputChanged(userInput: String) {
-                            updateUserInput(userInput)
-                        }
-                    }),
-                    "fragmentTag"
-                ).commit()
+                .add(R.id.fragmentContainer, ConfigChangeFragment.newInstance(), "fragmentTag")
+                .commit()
         }
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(MyFragmentLifecycleCallbacks(), false)
-    }
-
-    private fun updateUserInput(userInput: String) {
-        txtUserInput.text = "User input: $userInput"
     }
 
     override fun onDestroy() {
@@ -91,6 +80,10 @@ class ConfigChangeActivity : AppCompatActivity() {
     override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
         super.onTopResumedActivityChanged(isTopResumedActivity)
         Timber.i("onTopResumedActivityChanged(); isTopResumed: $isTopResumedActivity")
+    }
+
+    override fun onUserInputChanged(userInput: String) {
+        txtUserInput.text = "User input: $userInput"
     }
 
     companion object {
