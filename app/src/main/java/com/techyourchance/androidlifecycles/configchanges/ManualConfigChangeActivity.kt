@@ -3,6 +3,7 @@ package com.techyourchance.androidlifecycles.configchanges
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -16,11 +17,9 @@ import com.techyourchance.androidlifecycles.MyFragmentLifecycleCallbacks
 import com.techyourchance.androidlifecycles.R
 import timber.log.Timber
 
-class ConfigChangeActivity : AppCompatActivity(), ConfigChangeFragment.Listener {
+class ManualConfigChangeActivity : AppCompatActivity() {
 
     private lateinit var backgroundDetector: BackgroundDetector
-
-    private lateinit var txtUserInput: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -32,16 +31,12 @@ class ConfigChangeActivity : AppCompatActivity(), ConfigChangeFragment.Listener 
 
         backgroundDetector = (application as CustomApplication).backgroundDetector
 
-        setContentView(R.layout.activity_config_change)
-
-        txtUserInput = findViewById(R.id.txtUserInput)
-
-        onUserInputChanged("")
+        setContentView(R.layout.activity_manual_config_change)
 
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .add(R.id.fragmentContainer, ConfigChangeFragment.newInstance(), "fragmentTag")
+                .add(R.id.fragmentContainer, ManualConfigChangeFragment.newInstance(), "fragmentTag")
                 .commit()
         }
 
@@ -80,14 +75,15 @@ class ConfigChangeActivity : AppCompatActivity(), ConfigChangeFragment.Listener 
         Timber.i("onTopResumedActivityChanged(); isTopResumed: $isTopResumedActivity")
     }
 
-    override fun onUserInputChanged(userInput: String) {
-        txtUserInput.text = "User input: $userInput"
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        Timber.i("onConfigurationChanged()")
+        super.onConfigurationChanged(newConfig)
     }
 
     companion object {
         @JvmStatic
         fun start(context: Context) {
-            val intent = Intent(context, ConfigChangeActivity::class.java)
+            val intent = Intent(context, ManualConfigChangeActivity::class.java)
             context.startActivity(intent)
         }
     }
