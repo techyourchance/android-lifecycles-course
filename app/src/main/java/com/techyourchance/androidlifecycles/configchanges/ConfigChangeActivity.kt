@@ -22,8 +22,6 @@ class ConfigChangeActivity : AppCompatActivity(), ConfigChangeFragment.Listener 
 
     private lateinit var txtUserInput: TextView
 
-    private var isFragmentAdded = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         Timber.i("onCreate()")

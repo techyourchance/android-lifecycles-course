@@ -32,6 +32,12 @@
             android:windowSoftInputMode="stateUnchanged"
             />
 
+        <activity
+            android:name=".configchanges.ManualConfigChangeActivity"
+            android:windowSoftInputMode="stateUnchanged"
+            android:configChanges="orientation|screenLayout|screenSize"
+            />
+
     </application>
 
 </manifest>
