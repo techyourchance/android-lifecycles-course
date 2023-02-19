@@ -96,6 +96,13 @@ class ManualConfigChangeFragment: Fragment() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         Timber.i("onConfigurationChanged()")
         super.onConfigurationChanged(newConfig)
+        if (isAnimationEnabled) {
+            val viewId = animatedImageView!!.id
+            startConstraintSet.clear(viewId, ConstraintSet.START)
+            startConstraintSet.connect(viewId, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, getHorizontalMargin());
+            endConstraintSet.clear(viewId, ConstraintSet.END)
+            endConstraintSet.connect(viewId, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, getHorizontalMargin());
+        }
     }
 
     private fun setAnimationEnabled(enabled: Boolean) {
