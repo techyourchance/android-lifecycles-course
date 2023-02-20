@@ -38,6 +38,8 @@
             android:configChanges="orientation|screenLayout|screenSize"
             />
 
+        <activity android:name=".viewmodel.ViewModelActivity"/>
+
     </application>
 
 </manifest>
