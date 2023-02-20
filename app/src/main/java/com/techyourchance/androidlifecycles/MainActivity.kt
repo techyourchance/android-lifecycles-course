@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.techyourchance.androidlifecycles.configchanges.ConfigChangeActivity
 import com.techyourchance.androidlifecycles.configchanges.ManualConfigChangeActivity
 import com.techyourchance.androidlifecycles.fragments.FragmentHostActivity
+import com.techyourchance.androidlifecycles.viewmodel.ViewModelActivity
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +41,10 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btnManualConfigChangeActivity).setOnClickListener {
             ManualConfigChangeActivity.start(this)
+        }
+
+        findViewById<Button>(R.id.btnViewModelActivity).setOnClickListener {
+            ViewModelActivity.start(this)
         }
     }
 
