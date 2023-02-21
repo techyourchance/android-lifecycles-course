@@ -5,17 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.techyourchance.androidlifecycles.R
 import timber.log.Timber
 
-class ViewModelFragment: Fragment() {
+class ViewModelFragment: Fragment(), FragmentViewModel.Listener {
 
     private lateinit var viewModel: FragmentViewModel
 
     private var rootView: View? = null
     private lateinit var btnToggleCount: Button
+    private lateinit var txtCount: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.i("onCreate(); savedInstanceState: $savedInstanceState")
@@ -29,26 +31,16 @@ class ViewModelFragment: Fragment() {
             Timber.i("initializing the view hierarchy")
             rootView = layoutInflater.inflate(R.layout.fragment_view_model, container, false).apply {
                 btnToggleCount = findViewById(R.id.btnToggleCount)
+                txtCount = findViewById(R.id.txtCount)
             }
         }
 
         btnToggleCount.setOnClickListener {
             viewModel.toggleCounter()
-            updateUi(viewModel.isCounting)
         }
 
         return rootView
     }
-
-
-    private fun updateUi(isCounting: Boolean) {
-        if (isCounting) {
-            btnToggleCount.text = "Stop counter"
-        } else {
-            btnToggleCount.text = "Start counter"
-        }
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Timber.i("onViewCreated()")
@@ -63,7 +55,10 @@ class ViewModelFragment: Fragment() {
     override fun onStart() {
         Timber.i("onStart()")
         super.onStart()
-        updateUi(viewModel.isCounting)
+        viewModel.registerListener(this)
+
+        updateButtonState(viewModel.isCounting)
+        updateTextViewState(viewModel.count)
     }
 
     override fun onResume() {
@@ -79,6 +74,7 @@ class ViewModelFragment: Fragment() {
     override fun onStop() {
         Timber.i("onStop()")
         super.onStop()
+        viewModel.unregisterListener(this)
     }
 
     override fun onDestroyView() {
@@ -91,6 +87,24 @@ class ViewModelFragment: Fragment() {
         super.onDestroy()
     }
 
+    override fun onCounterValueChanged(count: Int) {
+        updateTextViewState(count)
+    }
+    override fun onCounterStateChanged(isCounting: Boolean) {
+        updateButtonState(isCounting)
+    }
+
+    private fun updateTextViewState(count: Int) {
+        txtCount.text = "Counter value: $count"
+    }
+
+    private fun updateButtonState(isCounting: Boolean) {
+        if (isCounting) {
+            btnToggleCount.text = "Stop counter"
+        } else {
+            btnToggleCount.text = "Start counter"
+        }
+    }
 
     companion object {
         fun newInstance(): ViewModelFragment {
