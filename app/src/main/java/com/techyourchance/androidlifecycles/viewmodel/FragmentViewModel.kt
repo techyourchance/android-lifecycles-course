@@ -1,5 +1,6 @@
 package com.techyourchance.androidlifecycles.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
@@ -10,31 +11,14 @@ import timber.log.Timber
 
 class FragmentViewModel: ViewModel() {
 
-    interface Listener {
-        fun onCounterValueChanged(count: Int)
-        fun onCounterStateChanged(isCounting: Boolean)
-    }
-
-    var isCounting = false
-        private set
-
-    var count = 0
-        private set
-
-    private val listeners = mutableSetOf<Listener>()
-
     private var countJob: Job? = null
 
-    fun registerListener(listener: Listener) {
-        listeners.add(listener)
-    }
+    val isCounting = MutableLiveData<Boolean>(false)
 
-    fun unregisterListener(listener: Listener) {
-        listeners.remove(listener)
-    }
+    val count = MutableLiveData<Int>(0)
 
     fun toggleCounter() {
-        if (isCounting) {
+        if (isCounting.value!!) {
             stopCounter()
         } else {
             startCounter()
@@ -42,18 +26,16 @@ class FragmentViewModel: ViewModel() {
     }
 
     private fun startCounter() {
-        if (isCounting) {
+        if (isCounting.value!!) {
             return
         }
-        isCounting = true
-        count = 0
+        isCounting.value = true
+        count.value = 0
         countJob = viewModelScope.launch {
             Timber.tag("FragmentViewModel").i("Starting the counter")
-            listeners.map { it.onCounterStateChanged(true) }
-            while (isCounting) {
-                count++
-                Timber.tag("FragmentViewModel").i("Counter value: $count")
-                listeners.map { it.onCounterValueChanged(count) }
+            while (isCounting.value!!) {
+                count.value = count.value!! + 1
+                Timber.tag("FragmentViewModel").i("Counter value: ${count.value!!}")
                 delay(1000)
             }
         }
@@ -61,8 +43,7 @@ class FragmentViewModel: ViewModel() {
 
     private fun stopCounter() {
         Timber.i("Stopping the counter")
-        isCounting = false
+        isCounting.value = false
         countJob?.cancel()
-        listeners.map { it.onCounterStateChanged(false) }
     }
 }

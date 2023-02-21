@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.techyourchance.androidlifecycles.R
 import timber.log.Timber
 
-class ViewModelFragment: Fragment(), FragmentViewModel.Listener {
+class ViewModelFragment: Fragment() {
 
     private lateinit var viewModel: FragmentViewModel
 
@@ -39,6 +39,14 @@ class ViewModelFragment: Fragment(), FragmentViewModel.Listener {
             viewModel.toggleCounter()
         }
 
+        viewModel.isCounting.observe(viewLifecycleOwner) { isCounting ->
+            updateButtonState(isCounting)
+        }
+
+        viewModel.count.observe(viewLifecycleOwner) { count ->
+            updateTextViewState(count)
+        }
+
         return rootView
     }
 
@@ -55,10 +63,6 @@ class ViewModelFragment: Fragment(), FragmentViewModel.Listener {
     override fun onStart() {
         Timber.i("onStart()")
         super.onStart()
-        viewModel.registerListener(this)
-
-        updateButtonState(viewModel.isCounting)
-        updateTextViewState(viewModel.count)
     }
 
     override fun onResume() {
@@ -74,7 +78,6 @@ class ViewModelFragment: Fragment(), FragmentViewModel.Listener {
     override fun onStop() {
         Timber.i("onStop()")
         super.onStop()
-        viewModel.unregisterListener(this)
     }
 
     override fun onDestroyView() {
@@ -85,13 +88,6 @@ class ViewModelFragment: Fragment(), FragmentViewModel.Listener {
     override fun onDestroy() {
         Timber.i("onDestroy()")
         super.onDestroy()
-    }
-
-    override fun onCounterValueChanged(count: Int) {
-        updateTextViewState(count)
-    }
-    override fun onCounterStateChanged(isCounting: Boolean) {
-        updateButtonState(isCounting)
     }
 
     private fun updateTextViewState(count: Int) {
