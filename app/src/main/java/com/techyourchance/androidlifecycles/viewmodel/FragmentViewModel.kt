@@ -3,10 +3,7 @@ package com.techyourchance.androidlifecycles.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 class FragmentViewModel: ViewModel() {
@@ -16,6 +13,8 @@ class FragmentViewModel: ViewModel() {
     val isCounting = MutableLiveData<Boolean>(false)
 
     val count = MutableLiveData<Int>(0)
+
+    private val coroutineScope = CoroutineScope(Dispatchers.Main.immediate)
 
     fun toggleCounter() {
         if (isCounting.value!!) {
@@ -31,7 +30,7 @@ class FragmentViewModel: ViewModel() {
         }
         isCounting.value = true
         count.value = 0
-        countJob = viewModelScope.launch {
+        countJob = coroutineScope.launch {
             Timber.tag("FragmentViewModel").i("Starting the counter")
             while (isCounting.value!!) {
                 count.value = count.value!! + 1
@@ -44,6 +43,12 @@ class FragmentViewModel: ViewModel() {
     private fun stopCounter() {
         Timber.i("Stopping the counter")
         isCounting.value = false
+        countJob?.cancel()
+    }
+
+    override fun onCleared() {
+        Timber.i("onCleared()")
+        super.onCleared()
         countJob?.cancel()
     }
 }
