@@ -15,6 +15,8 @@ class CustomApplication : Application() {
 
         Timber.plant(Timber.DebugTree())
 
+        Timber.i("onCreate()")
+
         ProcessLifecycleOwner.get().lifecycle.addObserver(MyAppLifecycleObserver())
     }
 }
