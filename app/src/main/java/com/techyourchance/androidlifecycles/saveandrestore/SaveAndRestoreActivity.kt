@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,17 +12,23 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.techyourchance.androidlifecycles.BackgroundDetector
 import com.techyourchance.androidlifecycles.CustomApplication
 import com.techyourchance.androidlifecycles.R
+import com.techyourchance.androidlifecycles.viewmodel.ActivityViewModel
 import timber.log.Timber
 
 class SaveAndRestoreActivity : AppCompatActivity() {
 
     private lateinit var backgroundDetector: BackgroundDetector
+
+    private lateinit var viewModel: SaveAndRestoreViewModel
+
+    private lateinit var txtTimeCount: TextView
 
     private lateinit var checkBox: CheckBox
     private lateinit var txtCheckBoxCaption: TextView
@@ -49,8 +54,11 @@ class SaveAndRestoreActivity : AppCompatActivity() {
 
         backgroundDetector = (application as CustomApplication).backgroundDetector
 
+        viewModel = ViewModelProvider(this).get(SaveAndRestoreViewModel::class.java)
+
         setContentView(R.layout.activity_save_and_restore)
 
+        txtTimeCount = findViewById(R.id.txtTimeCount)
         checkBox = findViewById(R.id.checkBox)
         txtCheckBoxCaption = findViewById(R.id.txtCheckBoxCaption)
         checkBoxMaterial = findViewById(R.id.checkBoxMaterial)
@@ -67,6 +75,10 @@ class SaveAndRestoreActivity : AppCompatActivity() {
         savedInstanceState?.let {
             sum = it.getInt(SAVED_STATE_SUM)
             numbersAdapter.bindNumbers(it.getIntArray(SAVED_STATE_NUMBERS)!!.toList())
+        }
+
+        viewModel.secondsElapsed.observe(this) { secondsElapsed ->
+            updateTimeCount(secondsElapsed)
         }
 
         checkBox.setOnCheckedChangeListener { _, isChecked ->
@@ -91,6 +103,7 @@ class SaveAndRestoreActivity : AppCompatActivity() {
         updateCheckBoxCaption(checkBox.isChecked)
         updateCheckBoxMaterialCaption(checkBoxMaterial.isChecked)
         updateSum()
+        updateTimeCount(viewModel.secondsElapsed.value!!)
     }
 
     override fun onDestroy() {
@@ -149,6 +162,10 @@ class SaveAndRestoreActivity : AppCompatActivity() {
 
     private fun updateSum() {
         txtSum.text = "Total: ${sum.toString()}"
+    }
+
+    private fun updateTimeCount(seconds: Int) {
+        txtTimeCount.text = "${seconds}s"
     }
 
     companion object {
