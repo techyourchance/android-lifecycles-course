@@ -40,6 +40,8 @@
 
         <activity android:name=".viewmodel.ViewModelActivity"/>
 
+        <activity android:name=".saveandrestore.SaveAndRestoreActivity"/>
+
     </application>
 
 </manifest>
