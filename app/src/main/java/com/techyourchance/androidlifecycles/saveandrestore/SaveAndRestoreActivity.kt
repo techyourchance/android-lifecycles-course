@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,6 +64,11 @@ class SaveAndRestoreActivity : AppCompatActivity() {
         numbersAdapter = NumbersAdapter()
         recyclerNumbers.adapter = numbersAdapter
 
+        savedInstanceState?.let {
+            sum = it.getInt(SAVED_STATE_SUM)
+            numbersAdapter.bindNumbers(it.getIntArray(SAVED_STATE_NUMBERS)!!.toList())
+        }
+
         checkBox.setOnCheckedChangeListener { _, isChecked ->
             updateCheckBoxCaption(isChecked)
         }
@@ -119,6 +125,12 @@ class SaveAndRestoreActivity : AppCompatActivity() {
         Timber.i("onTopResumedActivityChanged(); isTopResumed: $isTopResumedActivity")
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(SAVED_STATE_SUM, sum)
+        outState.putIntArray(SAVED_STATE_NUMBERS, numbersAdapter.numbers.toIntArray())
+    }
+
     private fun updateCheckBoxCaption(isChecked: Boolean) {
         if (isChecked) {
             txtCheckBoxCaption.text = "Checkbox is checked"
@@ -140,6 +152,10 @@ class SaveAndRestoreActivity : AppCompatActivity() {
     }
 
     companion object {
+
+        private const val SAVED_STATE_SUM = "sum"
+        private const val SAVED_STATE_NUMBERS = "numbers"
+
         @JvmStatic
         fun start(context: Context) {
             val intent = Intent(context, SaveAndRestoreActivity::class.java)
