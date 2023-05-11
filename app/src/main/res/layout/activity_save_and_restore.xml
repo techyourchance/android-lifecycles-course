@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glStart"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glEnd"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/glStart"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/txtCheckBoxCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/checkBox"
+        app:layout_constraintStart_toEndOf="@id/checkBox"
+        style="@style/TextViewStandard"
+        tools:text="Check box"
+        />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkBoxMaterial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/checkBox"
+        app:layout_constraintStart_toEndOf="@id/glStart"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/txtCheckBoxMaterialCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/checkBoxMaterial"
+        app:layout_constraintStart_toEndOf="@id/checkBoxMaterial"
+        style="@style/TextViewStandard"
+        tools:text="Check box material"
+        />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:valueFrom="0"
+        android:valueTo="100"
+        android:value="0"
+        app:layout_constraintTop_toBottomOf="@id/checkBoxMaterial"
+        app:layout_constraintStart_toEndOf="@id/glStart"
+        app:layout_constraintEnd_toEndOf="@id/glEnd"
+        android:layout_marginTop="20dp"
+        />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:valueFrom="0"
+        android:valueTo="100"
+        android:value="0"
+        app:layout_constraintTop_toBottomOf="@id/seekBar"
+        app:layout_constraintStart_toStartOf="@id/seekBar"
+        app:layout_constraintEnd_toEndOf="@id/seekBar"
+        android:layout_marginTop="10dp"
+        />
+
+    <EditText
+        android:id="@+id/edtNumber"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/slider"
+        app:layout_constraintStart_toEndOf="@id/glStart"
+        android:layout_marginTop="20dp"
+        android:inputType="number"
+        android:maxLines="1"
+        android:textAlignment="center"
+        />
+
+    <Button
+        android:id="@+id/btnAddNumber"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/edtNumber"
+        app:layout_constraintTop_toTopOf="@id/edtNumber"
+        app:layout_constraintStart_toEndOf="@id/edtNumber"
+        app:layout_constraintEnd_toStartOf="@id/glEnd"
+        android:layout_marginStart="20dp"
+        android:text="Add item"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/edtNumber"
+        app:layout_constraintBottom_toTopOf="@id/txtSum"
+        app:layout_constraintStart_toEndOf="@id/glStart"
+        app:layout_constraintEnd_toStartOf="@id/glEnd"
+        android:layout_marginVertical="20dp"
+        android:paddingVertical="10dp"
+        android:background="@color/gray_light"
+        />
+
+    <TextView
+        android:id="@+id/txtSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="40dp"
+        style="@style/TextViewStandard"
+        tools:text="1001"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
