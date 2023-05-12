@@ -27,10 +27,13 @@ class BackgroundDetector {
 
     private val listeners = mutableListOf<Listener>()
 
+    private var foregroundCount = 0
+
     fun activityStarted() {
         startedActivitiesNum++
         if (startedActivitiesNum == 1) {
-            Timber.i("application is in foreground")
+            foregroundCount++
+            Timber.i("application is in foreground; foreground count: $foregroundCount")
             listeners.map { it.onForeground() }
         }
     }
