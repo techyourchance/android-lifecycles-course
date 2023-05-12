@@ -12,9 +12,13 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.AbstractSavedStateViewModelFactory
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.savedstate.SavedStateRegistryOwner
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.techyourchance.androidlifecycles.BackgroundDetector
 import com.techyourchance.androidlifecycles.CustomApplication
@@ -54,7 +58,7 @@ class SaveAndRestoreActivity : AppCompatActivity() {
 
         backgroundDetector = (application as CustomApplication).backgroundDetector
 
-        viewModel = ViewModelProvider(this).get(SaveAndRestoreViewModel::class.java)
+        viewModel = ViewModelProvider(this, MyViewModelFactory(this)).get(SaveAndRestoreViewModel::class.java)
 
         setContentView(R.layout.activity_save_and_restore)
 
@@ -210,4 +214,18 @@ private class NumbersAdapter: RecyclerView.Adapter<NumberViewHolder>() {
 
 private class NumberViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val numberText: TextView = itemView.findViewById(R.id.txtNumber)
+}
+
+
+private class MyViewModelFactory(
+    owner: SavedStateRegistryOwner,
+) : AbstractSavedStateViewModelFactory(owner, null) {
+
+    override fun <T : ViewModel?> create(
+        key: String,
+        modelClass: Class<T>,
+        handle: SavedStateHandle
+    ): T {
+        return SaveAndRestoreViewModel(handle) as T
+    }
 }
