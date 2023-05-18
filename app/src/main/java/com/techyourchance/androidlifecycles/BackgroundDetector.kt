@@ -2,10 +2,10 @@ package com.techyourchance.androidlifecycles
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+import com.techyourchance.androidlifecycles.sharedpreferences.SharedPrefsHelper
 import timber.log.Timber
 
-class BackgroundDetector {
+class BackgroundDetector(private val sharedPrefsHelper: SharedPrefsHelper) {
 
     interface Listener {
         fun onBackground()
@@ -27,12 +27,12 @@ class BackgroundDetector {
 
     private val listeners = mutableListOf<Listener>()
 
-    private var foregroundCount = 0
-
     fun activityStarted() {
         startedActivitiesNum++
         if (startedActivitiesNum == 1) {
+            var foregroundCount = sharedPrefsHelper.foregroundCount().get()
             foregroundCount++
+            sharedPrefsHelper.foregroundCount().set(foregroundCount)
             Timber.i("application is in foreground; foreground count: $foregroundCount")
             listeners.map { it.onForeground() }
         }
