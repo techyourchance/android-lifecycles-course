@@ -21,7 +21,7 @@ class ConfigChangeFragment: Fragment() {
     private var rootView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Timber.i("onCreate(); savedInstanceState: $savedInstanceState")
+        Timber.i("onCreate(); identity: ${System.identityHashCode(this)}")
         super.onCreate(savedInstanceState)
     }
 
@@ -77,7 +77,7 @@ class ConfigChangeFragment: Fragment() {
     }
 
     override fun onDestroy() {
-        Timber.i("onDestroy()")
+        Timber.i("onDestroy(); identity: ${System.identityHashCode(this)}")
         super.onDestroy()
     }
 
