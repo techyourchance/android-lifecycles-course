@@ -24,7 +24,7 @@ class ConfigChangeActivity : AppCompatActivity(), ConfigChangeFragment.Listener 
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        Timber.i("onCreate()")
+        Timber.i("onCreate(); identity: ${System.identityHashCode(this)}")
 
         val application = this.applicationContext as Application
 
@@ -49,7 +49,7 @@ class ConfigChangeActivity : AppCompatActivity(), ConfigChangeFragment.Listener 
     }
 
     override fun onDestroy() {
-        Timber.i("onDestroy()")
+        Timber.i("onDestroy(); identity: ${System.identityHashCode(this)}")
         super.onDestroy()
     }
 
