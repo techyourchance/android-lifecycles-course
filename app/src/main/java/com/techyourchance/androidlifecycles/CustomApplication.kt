@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.techyourchance.androidlifecycles.service.MyServiceManager
 import com.techyourchance.androidlifecycles.sharedpreferences.SharedPrefsHelper
 import timber.log.Timber
 
@@ -15,6 +16,8 @@ class CustomApplication : Application() {
     private lateinit var sharedPrefsHelper: SharedPrefsHelper
 
     lateinit var backgroundDetector: BackgroundDetector
+
+    val myServiceManager = MyServiceManager()
 
     override fun onCreate() {
         super.onCreate()
