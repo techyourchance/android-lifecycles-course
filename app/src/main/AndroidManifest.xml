@@ -42,6 +42,8 @@
 
         <activity android:name=".saveandrestore.SaveAndRestoreActivity"/>
 
+        <activity android:name=".service.ServiceActivity"/>
+
     </application>
 
 </manifest>

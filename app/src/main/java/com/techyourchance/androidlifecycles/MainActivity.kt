@@ -9,6 +9,7 @@ import com.techyourchance.androidlifecycles.configchanges.ConfigChangeActivity
 import com.techyourchance.androidlifecycles.configchanges.ManualConfigChangeActivity
 import com.techyourchance.androidlifecycles.fragments.FragmentHostActivity
 import com.techyourchance.androidlifecycles.saveandrestore.SaveAndRestoreActivity
+import com.techyourchance.androidlifecycles.service.ServiceActivity
 import com.techyourchance.androidlifecycles.viewmodel.ViewModelActivity
 import timber.log.Timber
 
@@ -50,6 +51,10 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btnSaveAndRestoreActivity).setOnClickListener {
             SaveAndRestoreActivity.start(this)
+        }
+
+        findViewById<Button>(R.id.btnServiceActivity).setOnClickListener {
+            ServiceActivity.start(this)
         }
     }
 
