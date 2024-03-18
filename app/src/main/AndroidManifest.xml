@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.techyourchance.androidlifecycles">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
+
     <application
         android:name=".CustomApplication"
         android:allowBackup="false"
@@ -42,12 +47,22 @@
 
         <activity android:name=".saveandrestore.SaveAndRestoreActivity"/>
 
-        <activity android:name=".service.ServiceActivity"/>
+        <activity
+            android:name=".service.ServiceActivity"
+            android:launchMode="singleTop"
+            />
 
         <service
             android:name=".service.MyService"
             android:enabled="true"
             android:exported="false"
+            />
+
+        <service
+            android:name=".service.MyForegroundService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
             />
 
     </application>
