@@ -9,12 +9,13 @@ import com.techyourchance.androidlifecycles.CustomApplication
 import com.techyourchance.androidlifecycles.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class ServiceActivity : AppCompatActivity() {
 
     private lateinit var btnToggleService: Button
+    private lateinit var btnToggleForegroundService: Button
 
     private lateinit var myServiceManager: MyServiceManager
 
@@ -27,9 +28,10 @@ class ServiceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_service)
 
         btnToggleService = findViewById(R.id.btnToggleService)
+        btnToggleForegroundService = findViewById(R.id.btnToggleForegroundService)
 
         btnToggleService.setOnClickListener {
-            when(myServiceManager.state.value) {
+            when(myServiceManager.serviceState.value) {
                 MyServiceManager.MyServiceState.NOT_STARTED, MyServiceManager.MyServiceState.STOPPED -> {
                     MyService.start(this@ServiceActivity)
                 }
@@ -38,19 +40,32 @@ class ServiceActivity : AppCompatActivity() {
                 }
             }
         }
+
+        btnToggleForegroundService.setOnClickListener {
+            when(myServiceManager.foregroundServiceState.value) {
+                MyServiceManager.MyServiceState.NOT_STARTED, MyServiceManager.MyServiceState.STOPPED -> {
+                    MyForegroundService.start(this@ServiceActivity)
+                }
+                MyServiceManager.MyServiceState.STARTED -> {
+                    MyForegroundService.stop(this@ServiceActivity)
+                }
+            }
+        }
     }
 
     override fun onStart() {
         super.onStart()
         GlobalScope.launch(Dispatchers.Main) {
-            myServiceManager.state.collect {state ->
-                updateUi(state)
+            combine(myServiceManager.serviceState, myServiceManager.foregroundServiceState) { ss, fss ->
+                Pair(ss, fss)
+            }.collect { pair ->
+                updateUi(pair.first, pair.second)
             }
         }
     }
 
-    private fun updateUi(state: MyServiceManager.MyServiceState) {
-        when (state) {
+    private fun updateUi(serviceState: MyServiceManager.MyServiceState, foregroundServiceState: MyServiceManager.MyServiceState) {
+        when (serviceState) {
             MyServiceManager.MyServiceState.NOT_STARTED -> {
                 btnToggleService.text = "Start service"
             }
@@ -59,6 +74,17 @@ class ServiceActivity : AppCompatActivity() {
             }
             MyServiceManager.MyServiceState.STOPPED -> {
                 btnToggleService.text = "Restart service"
+            }
+        }
+        when (foregroundServiceState) {
+            MyServiceManager.MyServiceState.NOT_STARTED -> {
+                btnToggleForegroundService.text = "Start foreground service"
+            }
+            MyServiceManager.MyServiceState.STARTED -> {
+                btnToggleForegroundService.text = "Stop foreground service"
+            }
+            MyServiceManager.MyServiceState.STOPPED -> {
+                btnToggleForegroundService.text = "Restart foreground service"
             }
         }
     }

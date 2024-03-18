@@ -31,12 +31,12 @@ class MyService: Service() {
         Timber.d("onStartCommand()")
         if (intent?.hasExtra(EXTRA_COMMAND_START) == true) {
             Timber.d("Start service command")
-            myServiceManager.state.value = MyServiceManager.MyServiceState.STARTED
+            myServiceManager.serviceState.value = MyServiceManager.MyServiceState.STARTED
         }
         if (intent?.hasExtra(EXTRA_COMMAND_STOP) == true) {
             Timber.d("Stop service command")
             stopSelf()
-            myServiceManager.state.value = MyServiceManager.MyServiceState.STOPPED
+            myServiceManager.serviceState.value = MyServiceManager.MyServiceState.STOPPED
         }
 
         return super.onStartCommand(intent, flags, startId)

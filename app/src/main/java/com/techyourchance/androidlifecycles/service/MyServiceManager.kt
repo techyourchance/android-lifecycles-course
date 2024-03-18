@@ -6,6 +6,7 @@ class MyServiceManager {
 
     enum class MyServiceState { NOT_STARTED, STARTED, STOPPED }
 
-    var state = MutableStateFlow(MyServiceState.NOT_STARTED)
+    var serviceState = MutableStateFlow(MyServiceState.NOT_STARTED)
+    var foregroundServiceState = MutableStateFlow(MyServiceState.NOT_STARTED)
 
 }
