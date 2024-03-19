@@ -3,6 +3,7 @@ package com.techyourchance.androidlifecycles.service
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.PixelFormat
 import android.os.IBinder
 import android.view.Gravity
@@ -98,6 +99,12 @@ class MyOverlayService: Service() {
         }
         windowManager.removeView(overlayView)
         overlayView = null
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        hideOverlay()
+        showOverlay()
     }
 
     companion object {
