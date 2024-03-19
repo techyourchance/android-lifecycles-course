@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
     <application
         android:name=".CustomApplication"
         android:allowBackup="false"
@@ -63,6 +65,12 @@
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="dataSync"
+            />
+
+        <service
+            android:name=".service.MyOverlayService"
+            android:enabled="true"
+            android:exported="false"
             />
 
     </application>

@@ -8,5 +8,6 @@ class MyServiceManager {
 
     var serviceState = MutableStateFlow(MyServiceState.NOT_STARTED)
     var foregroundServiceState = MutableStateFlow(MyServiceState.NOT_STARTED)
+    var overlayServiceActive = MutableStateFlow(false)
 
 }
