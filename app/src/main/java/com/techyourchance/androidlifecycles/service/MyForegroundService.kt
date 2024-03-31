@@ -31,6 +31,7 @@ class MyForegroundService: Service() {
     override fun onDestroy() {
         Timber.d("onDestroy()")
         super.onDestroy()
+        myServiceManager.foregroundServiceState.value = MyServiceManager.MyServiceState.STOPPED
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -43,7 +44,6 @@ class MyForegroundService: Service() {
         if (intent?.hasExtra(EXTRA_COMMAND_STOP) == true) {
             Timber.d("Stop service command")
             stopSelf()
-            myServiceManager.foregroundServiceState.value = MyServiceManager.MyServiceState.STOPPED
         }
 
         return START_REDELIVER_INTENT
