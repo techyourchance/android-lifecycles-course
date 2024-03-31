@@ -46,7 +46,7 @@ class MyForegroundService: Service() {
             myServiceManager.foregroundServiceState.value = MyServiceManager.MyServiceState.STOPPED
         }
 
-        return super.onStartCommand(intent, flags, startId)
+        return START_REDELIVER_INTENT
     }
 
     private fun newNotification(): Notification {
